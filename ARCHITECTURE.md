@@ -347,7 +347,7 @@ final class WeatherService: WeatherServiceProtocol {
     // MARK: - Singleton
     static let shared = WeatherService()
     
-    private let apiKey = "REVOKED_API_KEY"
+    private let apiKey = Secrets.apiKey
     private let baseURL = "https://api.openweathermap.org/data/2.5"
     private let session: URLSession
     

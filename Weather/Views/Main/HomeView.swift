@@ -41,29 +41,36 @@ struct HomeView: View {
                     
                     // MARK: House Image
                     Image("House")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
                         .frame(maxHeight: .infinity, alignment: .top)
                         .padding(.top, 257)
                         .offset(y: -bottomSheetTranslationProrated * imageOffset)
                     
                     // MARK: Current Weather
                     VStack(spacing: -10 * (1 - bottomSheetTranslationProrated)) {
-                        Text(viewModel.cityName)
-                            .font(.largeTitle)
-                            .foregroundColor(.white)
-                        
-                        VStack {
-                            Text(attributedString)
-                                .multilineTextAlignment(.center)
-                                .frame(maxWidth: .infinity)
-                                .id("\(viewModel.temperature)-\(viewModel.conditionText)-\(hasDragged)")
-                            
-                            Text("H:\(viewModel.high)°   L:\(viewModel.low)°")
-                                .font(.title3.weight(.semibold))
+                        if viewModel.isLoadingCurrentWeather && viewModel.temperature == 0 {
+                            // Show skeleton while loading
+                            WeatherSkeletonView()
+                        } else {
+                            Text(viewModel.cityName)
+                                .font(.largeTitle)
                                 .foregroundColor(.white)
-                                .opacity(1 - bottomSheetTranslationProrated)
-                                .id("\(viewModel.high)-\(viewModel.low)")
+                            
+                            VStack {
+                                Text(attributedString)
+                                    .multilineTextAlignment(.center)
+                                    .frame(maxWidth: .infinity)
+                                    .id("\(viewModel.temperature)-\(viewModel.conditionText)-\(hasDragged)")
+                                
+                                Text("H:\(viewModel.high)°   L:\(viewModel.low)°")
+                                    .font(.title3.weight(.semibold))
+                                    .foregroundColor(.white)
+                                    .opacity(1 - bottomSheetTranslationProrated)
+                                    .id("\(viewModel.high)-\(viewModel.low)")
+                            }
+                            .frame(maxWidth: .infinity)
                         }
-                        .frame(maxWidth: .infinity)
                         
                         Spacer()
                     }
@@ -126,31 +133,27 @@ struct HomeView: View {
             }
             .navigationBarHidden(true)
             .task {
-                // Fetch on initial load
+                // Only fetch on initial load, don't block UI
                 if viewModel.temperature == 0 {
-                    await viewModel.fetchWeather()
-                }
-            }
-            .onChange(of: viewModel.cityName) { _ in
-                // Fetch when city changes
-                Task {
                     await viewModel.fetchWeather()
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("CitySelected"))) { notification in
                 if let cityQuery = notification.object as? String {
                     viewModel.updateCity(cityQuery)
+                    Task {
+                        await viewModel.fetchWeather()
+                    }
                 }
             }
         }
     }
     
     private var attributedString: AttributedString {
-        // Cache computation to avoid recalculating on every view update
         let tempString = "\(viewModel.temperature)°"
         let separator = hasDragged ? " | " : "\n "
-        let weatherString = viewModel.conditionText
-        var string = AttributedString(tempString + separator + weatherString)
+        let weatherString = viewModel.conditionText.isEmpty ? "" : viewModel.conditionText
+        var string = AttributedString(tempString + (weatherString.isEmpty ? "" : separator + weatherString))
         
         if let temp = string.range(of: tempString) {
             string[temp].font = .system(size: (96 - (bottomSheetTranslationProrated * (96 - 20))), weight: hasDragged ? .semibold : .thin)
@@ -162,7 +165,7 @@ struct HomeView: View {
             string[pipe].foregroundColor = .white.opacity(bottomSheetTranslationProrated)
         }
         
-        if let weather = string.range(of: weatherString) {
+        if !weatherString.isEmpty, let weather = string.range(of: weatherString) {
             string[weather].font = .title3.weight(.semibold)
             string[weather].foregroundColor = .white
         }

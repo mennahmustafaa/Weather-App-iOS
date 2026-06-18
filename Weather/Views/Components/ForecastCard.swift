@@ -2,7 +2,6 @@
 //  ForecastCard.swift
 //  Weather
 //
-//  Created by Dara To on 2022-06-20.
 //
 
 import SwiftUI
@@ -41,6 +40,7 @@ struct ForecastCard: View {
                 // MARK: Forecast Date
                 Text(forecast.date, format: forecastPeriod == ForecastPeriod.hourly ? .dateTime.hour() : .dateTime.weekday())
                     .font(.subheadline.weight(.semibold))
+                    .foregroundColor(.white)
                 
                 VStack(spacing: -4) {
                     // MARK: Forecast Small Icon
@@ -57,6 +57,7 @@ struct ForecastCard: View {
                 // MARK: Forecast Temperature
                 Text("\(forecast.temperature)°")
                     .font(.title3)
+                    .foregroundColor(.white)
                    
             }
             .padding(.horizontal, 8)

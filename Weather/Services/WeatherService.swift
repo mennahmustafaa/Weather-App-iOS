@@ -56,7 +56,7 @@ final class WeatherService: WeatherServiceProtocol {
     // MARK: - Singleton
     static let shared = WeatherService()
     
-    private let apiKey = "REVOKED_API_KEY"
+    private let apiKey = Secrets.apiKey
     private let baseURL = "https://api.openweathermap.org/data/2.5"
     private let session: URLSession
     
@@ -66,11 +66,15 @@ final class WeatherService: WeatherServiceProtocol {
         if let session = session {
             self.session = session
         } else {
+            // Use shared configuration for faster initialization
             let configuration = URLSessionConfiguration.default
-            configuration.timeoutIntervalForRequest = 10
-            configuration.timeoutIntervalForResource = 30
-            configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+            configuration.timeoutIntervalForRequest = 8
+            configuration.timeoutIntervalForResource = 20
+            configuration.requestCachePolicy = .returnCacheDataElseLoad // Use cache when available
             configuration.urlCache = URLCache(memoryCapacity: 10 * 1024 * 1024, diskCapacity: 50 * 1024 * 1024)
+            configuration.httpMaximumConnectionsPerHost = 4
+            configuration.httpShouldUsePipelining = true
+            configuration.waitsForConnectivity = false // Don't wait for connectivity
             self.session = URLSession(configuration: configuration)
         }
     }

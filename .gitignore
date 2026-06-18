@@ -1,2 +1,13 @@
 ._*
 .DS_Store
+
+# Secrets and API Keys
+Weather/Services/Secrets.swift
+
+# Xcode Build and User Settings
+DerivedData/
+SourcePackages/
+*.xcuserstate
+xcuserdata/
+.build/
+

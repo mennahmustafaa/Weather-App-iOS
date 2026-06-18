@@ -15,10 +15,12 @@ final class WeatherViewModel: ObservableObject {
     @Published var temperature: Int = 0
     @Published var high: Int = 0
     @Published var low: Int = 0
-    @Published var conditionText: String = "Loading..."
+    @Published var conditionText: String = ""
     @Published var hourlyForecasts: [Forecast] = []
     @Published var dailyForecasts: [Forecast] = []
     @Published var isLoading: Bool = false
+    @Published var isLoadingCurrentWeather: Bool = false
+    @Published var isLoadingForecast: Bool = false
     @Published var errorMessage: String?
     
     private let service: WeatherServiceProtocol
@@ -38,6 +40,13 @@ final class WeatherViewModel: ObservableObject {
     // MARK: - Fetch Weather
     func fetchWeather() async {
         errorMessage = nil
+        let isInitialLoad = temperature == 0
+        
+        // Set loading states
+        if isInitialLoad {
+            isLoadingCurrentWeather = true
+            isLoadingForecast = true
+        }
         
         do {
             // Fetch current weather first (faster, smaller response)
@@ -54,13 +63,19 @@ final class WeatherViewModel: ObservableObject {
             high = Int(current.main.tempMax.rounded())
             low = Int(current.main.tempMin.rounded())
             
+            // Hide current weather loading
+            isLoadingCurrentWeather = false
+            
             // Wait for forecast and update with more accurate data
             let forecast = try await forecastTask
             
             // Use forecast data for more accurate high/low temperatures
+            // Optimize: Use first few items instead of filtering entire list
             let calendar = Calendar.current
             let today = calendar.startOfDay(for: Date())
-            let todayForecasts = forecast.list.filter { item in
+            
+            // Only check first 8 items (24 hours) for today's forecasts - much faster
+            let todayForecasts = forecast.list.prefix(8).filter { item in
                 let itemDate = Date(timeIntervalSince1970: item.dt)
                 return calendar.isDate(itemDate, inSameDayAs: today)
             }
@@ -96,12 +111,17 @@ final class WeatherViewModel: ObservableObject {
             // Build daily forecasts (pick one entry per day from the forecast list)
             dailyForecasts = buildDailyForecasts(from: forecast, location: locationString)
             
+            // Hide forecast loading
+            isLoadingForecast = false
+            
         } catch let error as WeatherError {
             errorMessage = error.errorDescription ?? error.localizedDescription
-            isLoading = false
+            isLoadingCurrentWeather = false
+            isLoadingForecast = false
         } catch {
             errorMessage = error.localizedDescription
-            isLoading = false
+            isLoadingCurrentWeather = false
+            isLoadingForecast = false
         }
     }
     

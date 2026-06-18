@@ -20,17 +20,24 @@ struct ForecastView: View {
                 
                 // MARK: Forecast Cards
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 12) {
-                        if selection == 0 {
-                            ForEach(viewModel.hourlyForecasts) { forecast in
-                                ForecastCard(forecast: forecast, forecastPeriod: .hourly)
+                    LazyHStack(spacing: 12) {
+                        if viewModel.isLoadingForecast && viewModel.hourlyForecasts.isEmpty {
+                            // Show skeleton cards while loading
+                            ForEach(0..<6, id: \.self) { _ in
+                                ForecastCardSkeleton()
                             }
-                            .transition(.offset(x: -430))
                         } else {
-                            ForEach(viewModel.dailyForecasts) { forecast in
-                                ForecastCard(forecast: forecast, forecastPeriod: .daily)
+                            if selection == 0 {
+                                ForEach(viewModel.hourlyForecasts) { forecast in
+                                    ForecastCard(forecast: forecast, forecastPeriod: .hourly)
+                                }
+                                .transition(.offset(x: -430))
+                            } else {
+                                ForEach(viewModel.dailyForecasts) { forecast in
+                                    ForecastCard(forecast: forecast, forecastPeriod: .daily)
+                                }
+                                .transition(.offset(x: 430))
                             }
-                            .transition(.offset(x: 430))
                         }
                     }
                     .padding(.vertical, 20)
