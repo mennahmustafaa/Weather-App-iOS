@@ -2,6 +2,8 @@
 
 A beautiful, modern iOS weather application built with SwiftUI that displays real-time weather data from OpenWeatherMap API. Features a sleek UI with smooth animations, interactive bottom sheets, and comprehensive weather forecasting.
 
+
+
 ![iOS](https://img.shields.io/badge/iOS-15.5+-blue.svg)
 ![Swift](https://img.shields.io/badge/Swift-5.0-orange.svg)
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-3.0-green.svg)
@@ -19,23 +21,21 @@ A beautiful, modern iOS weather application built with SwiftUI that displays rea
 - ⚡ **Fast Performance**: Optimized API calls with progressive data loading
 - 🔄 **Error Handling**: Graceful error handling for network issues and API errors
 
-## 📸 Screenshots
 
-_Add screenshots of your app here_
 
-## 🏗️ Architecture
+##  Architecture
 
 This project follows **MVVM (Model-View-ViewModel)** architecture pattern and implements **SOLID principles** and modern design patterns.
 
 ### Design Patterns Used
 
-- ✅ **MVVM**: Clear separation of concerns
-- ✅ **Protocol-Oriented Programming**: Swift-native approach
-- ✅ **Singleton Pattern**: Single WeatherService instance
-- ✅ **Adapter Pattern**: API to domain model conversion
-- ✅ **Strategy Pattern**: Icon selection based on conditions
-- ✅ **Observer Pattern**: SwiftUI @Published properties
-- ✅ **Error Handling Pattern**: Centralized error management
+- **MVVM**: Clear separation of concerns
+-  **Protocol-Oriented Programming**: Swift-native approach
+- **Singleton Pattern**: Single WeatherService instance
+-  **Adapter Pattern**: API to domain model conversion
+-  **Strategy Pattern**: Icon selection based on conditions
+- **Observer Pattern**: SwiftUI @Published properties
+-  **Error Handling Pattern**: Centralized error management
 
 For detailed architecture documentation, see [ARCHITECTURE.md](./ARCHITECTURE.md).
 
