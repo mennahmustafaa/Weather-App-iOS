@@ -11,15 +11,15 @@ A beautiful, modern iOS weather application built with SwiftUI that displays rea
 
 ## ✨ Features
 
-- 🌍 **Real-time Weather Data**: Fetches live weather data from OpenWeatherMap API
-- 📍 **City Search**: Search and select any city worldwide
-- 📊 **5-Day Forecast**: View detailed 5-day weather forecast with 3-hour intervals
-- 🌡️ **Temperature Display**: Current temperature, high/low temperatures
-- 🎨 **Beautiful UI**: Modern design with smooth animations and interactive bottom sheets
-- 🌈 **Weather Icons**: Dynamic weather icons based on conditions and time of day
-- 📱 **Responsive Design**: Optimized for all iPhone screen sizes
-- ⚡ **Fast Performance**: Optimized API calls with progressive data loading
-- 🔄 **Error Handling**: Graceful error handling for network issues and API errors
+-  **Real-time Weather Data**: Fetches live weather data from OpenWeatherMap API
+-  **City Search**: Search and select any city worldwide
+-  **5-Day Forecast**: View detailed 5-day weather forecast with 3-hour intervals
+-  **Temperature Display**: Current temperature, high/low temperatures
+-  **Beautiful UI**: Modern design with smooth animations and interactive bottom sheets
+-  **Weather Icons**: Dynamic weather icons based on conditions and time of day
+-  **Responsive Design**: Optimized for all iPhone screen sizes
+-  **Fast Performance**: Optimized API calls with progressive data loading
+-  **Error Handling**: Graceful error handling for network issues and API errors
 
 
 
