@@ -79,7 +79,7 @@ For detailed architecture documentation, see [ARCHITECTURE.md](./ARCHITECTURE.md
    - Select your target device or simulator
    - Press `Cmd + R` to build and run
 
-## 🔧 Configuration
+##  Configuration
 
 ### API Endpoint
 
@@ -144,7 +144,7 @@ Weather/
 - **Interactive Bottom Sheet**: Drag to expand/collapse forecast view
 - **Real-time Updates**: Weather data updates automatically
 
-## 🎨 UI Components
+## UI Components
 
 - **Weather Widget**: Displays temperature, high/low, location, and weather icon
 - **Forecast Card**: Shows hourly/daily forecast with icons and probability
@@ -152,7 +152,7 @@ Weather/
 - **Navigation Bar**: Search functionality with custom white placeholder
 - **Bottom Sheet**: Interactive forecast view with smooth animations
 
-## 🔐 API Configuration
+## API Configuration
 
 ### Current Setup
 
