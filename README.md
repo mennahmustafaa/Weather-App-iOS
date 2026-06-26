@@ -9,7 +9,7 @@ A beautiful, modern iOS weather application built with SwiftUI that displays rea
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-3.0-green.svg)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)
 
-## ✨ Features
+##  Features
 
 -  **Real-time Weather Data**: Fetches live weather data from OpenWeatherMap API
 -  **City Search**: Search and select any city worldwide
@@ -46,7 +46,7 @@ For detailed architecture documentation, see [ARCHITECTURE.md](./ARCHITECTURE.md
 - Swift 5.0+
 - OpenWeatherMap API key (free tier available)
 
-## 🚀 Installation
+##  Installation
 
 1. **Clone the repository**
    ```bash
@@ -167,7 +167,7 @@ Weather/
 - City with country code: `"Cairo,EG"`
 - City with country name: `"Cairo, Egypt"`
 
-## 🐛 Error Handling
+##  Error Handling
 
 The app handles various error scenarios:
 
@@ -180,14 +180,14 @@ The app handles various error scenarios:
 
 All errors are displayed with user-friendly messages and retry options.
 
-## 🚀 Performance Optimizations
+##  Performance Optimizations
 
 - **Progressive Loading**: Current weather displays immediately, forecast updates separately
 - **Debounced Search**: City search waits 0.5 seconds before API call
 - **Optimized URLSession**: Configured timeouts and caching
 - **Efficient State Management**: Minimal view updates with proper @Published usage
 
-## 📝 Code Quality
+##  Code Quality
 
 - ✅ SOLID Principles
 - ✅ MVVM Architecture
@@ -196,7 +196,7 @@ All errors are displayed with user-friendly messages and retry options.
 - ✅ Type Safety
 - ✅ Code Documentation
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
@@ -210,7 +210,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - [OpenWeatherMap](https://openweathermap.org/) for providing the weather API
 - [BottomSheet](https://github.com/Wouter125/BottomSheet) library for bottom sheet functionality
@@ -222,4 +222,3 @@ For questions or suggestions, please open an issue on GitHub.
 
 ---
 
-Made with ❤️ using SwiftUI
